@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+    <!-- select a country -->
+    <div>
+        <form method="POST" action="/getCountry" id="countryForm">
+            <select class="country" name="country" onchange="submitForm('countryForm')">
+                <option value="">Select Country</option>
+                <option value='{"countryCode":"CN", "countryName":"China"}'>China</option>
+                <option value='{"countryCode":"GB", "countryName":"United Kingdom"}'>United Kingdom</option>
+                <option value='{"countryCode":"US", "countryName":"United States"}'>United States</option>
+                <option value='{"countryCode":"JP", "countryName":"Japan"}'>Japan</option>
+                <option value='{"countryCode":"KR", "countryName":"Korea"}'>Korea</option>
+            </select>
+        </form>   
+    </div>
+    
+    <script>
+        function submitForm(formName){
+            var form = document.getElementById(formName);
+            form.submit();
+        }
+    </script>
+</body>
+</html>

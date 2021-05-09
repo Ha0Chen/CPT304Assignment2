@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+        <!-- select a country -->
+        <div>
+            <form method="POST" action="/getCountry" id="countryForm">
+                <select class="country" name="country" onchange="submitForm('countryForm')">
+                    <option value="">Select Country</option>
+                    <option value='{"countryCode":"CN", "countryName":"China"}'>China</option>
+                    <option value='{"countryCode":"GB", "countryName":"United Kingdom"}'>United Kingdom</option>
+                    <option value='{"countryCode":"US", "countryName":"United States"}'>United States</option>
+                    <option value='{"countryCode":"JP", "countryName":"Japan"}'>Japan</option>
+                    <option value='{"countryCode":"KR", "countryName":"Korea"}'>Korea</option>
+                </select>
+                
+            </form>           
+        </div>
+        <!-- show the public holiday list -->
+        <div>           
+            <h1>You have chosen: <%=countryName%></h1>
+            <ul>                
+                <% for (var i = 0; i < holiday.length; i++) { %>
+                    <li>
+                        <%=holiday[i].localName%> <%=holiday[i].date%>
+                    </li>                      
+                <% } %>                
+            </ul>            
+        </div> 
+        <!-- select a region -->
+        <div>
+            <form action="/getRegion" method="POST" id="regionForm">
+                <select name="region" class="region" onchange="submitForm('regionForm')">    
+                    <option value="">Select Region</option>       
+                    <% for (var i = 0; i < region.length; i++){ %>
+                        <option value='{"isoCode":"<%=region[i].isoCode%>", "regionName":"<%=region[i].name%>"}'>
+                            <%=region[i].name%>
+                        </option>
+                    <% } %>
+                </select>
+            </form>   
+        </div>
+        <!-- select a city -->
+        <div>
+            <h2>You have chosen: <%=regionName%></h2>
+            <form action="/getCity" method="POST" id="cityForm">
+                <select name="city" class="city" onchange="submitForm('cityForm')">
+                    <option value="">Select City</option>
+                    <% for (var i = 0; i < city.length; i++){ %>
+                        <option value='{"longitude":"<%=city[i].longitude%>", 
+                            "latitude":"<%=city[i].latitude%>", 
+                            "name":"<%=city[i].name%>"}'>
+                            <%=city[i].name%>
+                        </option>
+                    <% } %>
+                </select>
+            </form>                      
+        </div>
+        <!-- select a public holiday -->
+        <div>
+            <h3>You have chosen: <%=cityName%></h3>
+            <form action="/getHoliday" method="POST" id="holidayForm">
+                <select name="holiday" class="holiday" onchange="submitForm('holidayForm')">
+                    <option value="">Select Holiday</option>
+                    <% for (var i = 0; i < holiday.length; i++) { %>
+                        <option value='{"holidayDate":"<%=holiday[i].date%>",
+                                        "holidayName":"<%=holiday[i].name%>",
+                                        "holidayLocalName":"<%=holiday[i].localName%>"}'>
+                            <%=holiday[i].localName%> <%=holiday[i].name%>
+                        </option>                      
+                    <% } %>  
+                </select>
+            </form>
+        </div>
+
+
+    <script>
+        function submitForm(formName){
+            var form = document.getElementById(formName);
+            form.submit();
+        }
+
+       
+    </script>
+    
+</body>
+</html>
